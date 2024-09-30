@@ -7,7 +7,7 @@ import OPmassentry as OPMS
 import pandas as pd
 
 # Privileged user password
-
+PRIVILEGED_USER_PASSWORD = os.getenv("PRIVILEGED_USER_PASSWORD")
 
 # Check if the user is privileged
 def is_privileged(password):

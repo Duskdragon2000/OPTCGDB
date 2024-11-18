@@ -88,7 +88,7 @@ def get_cards_by_name_and_set(card_name,set_code):
     cur = connection.cursor()
 
     cur.execute('''
-        SELECT id, card_number, name, category, cost, attribute, counter, color, feature, effect, card_set, set_code, image_src
+        SELECT *
         FROM card_data
         WHERE name = ?
         AND set_code = ?
@@ -98,11 +98,15 @@ def get_cards_by_name_and_set(card_name,set_code):
 
     card_map = {}
     for card in cards:
-        base_id = card[0].split('_')[0]  # Take base ID before underscore
+
+        card_id = card[0].strip()
+        base_id = card_id.split('_')[0]  # Take base ID before underscore
+
         if base_id not in card_map:
             card_map[base_id] = card
 
+ 
     connection.close()
 
-    return list(card_map.values())
+    return list(card_map.values()) 
 

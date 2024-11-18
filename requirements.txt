@@ -1,5 +1,5 @@
-streamlit==1.22.0
-requests==2.26.0
-beautifulsoup4==4.10.0
+streamlit==1.39.0
+requests==2.32.3
+beautifulsoup4==4.12.2
 pandas
 flask

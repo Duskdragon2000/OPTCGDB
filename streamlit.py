@@ -3,7 +3,7 @@ import OPSQL
 import pickle
 import os
 import pandas as pd
-
+import urllib.parse
 
 # Function to display the card database
 def show_card_database():
@@ -50,7 +50,9 @@ def format_decklist_input():
                 with col1:
                     formatted_decklist = format_decklist(decklist)
                     tcgplayer_link = format_tcgplayer_link(formatted_decklist)
-                    st.link_button("Purchase on TCGplayer", tcgplayer_link, icon="🎴")
+                    affiliate_link = generate_affiliate_link(tcgplayer_link)
+
+                    st.link_button("Purchase on TCGplayer", affiliate_link, icon="🎴")
                     st.text_area('Formatted Decklist:', formatted_decklist, height= 400)
                     
                     
@@ -116,6 +118,12 @@ def format_tcgplayer_link(formatted_list):
         encoded_list.append(f"{quantity}+{encoded_card_name}+[{set_code}]")
     return base_url + "%7c%7c".join(encoded_list)
       
+def generate_affiliate_link(custom_url, affiliate_base="https://tcgplayer.pxf.io/GKmX69"):
+    # URL encode the custom link
+    encoded_url = urllib.parse.quote(custom_url, safe='')
+    # Combine with the affiliate base
+    affiliate_link = f"{affiliate_base}?u={encoded_url}"
+    return affiliate_link
 
 # Main Streamlit App
 st.set_page_config(layout="wide")
